@@ -6,7 +6,7 @@
 /*   By: kbenjell <kbenjell@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 23:59:21 by kbenjell          #+#    #+#             */
-/*   Updated: 2023/03/02 00:08:13 by kbenjell         ###   ########.fr       */
+/*   Updated: 2023/03/27 01:25:29 by kbenjell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,4 +17,6 @@
 
 char	*get_next_line(int fd);
 
-#endif
+# ifndef BUFFERSZ
+#  define BUFFERSZ
+# endif
