@@ -11,10 +11,27 @@
 /* ************************************************************************** */
 #include "get_next_line.h"
 
+int new_line_in(char *b)
+{
+	while (*b)
+		if (*b == '\n')
+			return 1;
+	return 0;
+}
+
+int no_new_line_in(char *b)
+{
+	if (new_line_in(b))
+		return 0;
+	return 1;
+}
+
+// In the two functions above, b stands for BUFFER, for convenience.
+
 char	*current_buffer(int fd)
 {
 	char	*cb;
-
+	int i;
 	current = malloc(BUFFER_SIZE + 1);
 	if (current)
 	{
@@ -27,28 +44,34 @@ char	*current_buffer(int fd)
 
 // READ_BS above stands for: Read the Current Buffer
 
-char	*join_safe_buffers(int fd)
+void joinline(int fd)
 {
-	char	*sb;
+	char	*cb;
+	char **sep;
 
-	while ()
-		return (cb);
+	sep = NULL;
+	cb = current_buffer(fd);
+	while (no_new_line_in(cb))
+	{
+		line = ft_strjoin(line, cb);
+		cb = current_buffer(fd);
+	}
+	if (new_line_in(cb))
+	{
+		sep = ft_split(cb, '\n');
+		line = ft_strjoin(line, sep[0]);
+		line = ft_strjoin(line, "\n");
+		tail = sep[1];
+		free(sep);
+	}
 }
 
-char	*split_newlined_buffer(void)
-{
-}
 
 char	*get_next_line(int fd)
 {
 	static char			*line;
-	char				*current_buffer;
-	static unsigned int	position;
+	char *tail;
 
-	position = 0;
-	while (no_new_line_in(current_buffer(int fd)))
-	{
-		line = ft_strjoin(line, current_buffer);
-	}
+
 	return (line);
 }
