@@ -49,30 +49,19 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (dest);
 }
 
-char	**ft_split(char const *s, char c)
+char *until_nl(char *s)
 {
-	char	**splits;
-	int		*counts;
-	int		sc;
-	int		i;
-
-	if (!s)
-		return (0);
-	i = -1;
-	sc = ft_splits_count(s, c, 0, 0);
-	counts = ft_splits_charcount(s, c, sc, 0);
-	splits = malloc((sc + 1) * sizeof(char *));
-	if (!splits)
-		return (0);
-	while (++i < sc)
-	{
-		splits[i] = malloc((counts[i] + 1) * sizeof(const char));
-		if (!splits[i])
-		{
-			ft_free_previous(splits);
-			return (0);
-		}
-	}
-	ft_splits_filler(splits, counts, s, c);
-	return (splits);
+	int i;
+	while (s[i] != '\n')
+		i++;
+	s[i + 1] = '\0';
+	return s;
 }
+
+char *after_nl(char *s)
+{
+	while (*s != '\n')
+		s++;
+	return (s + 1);
+}
+

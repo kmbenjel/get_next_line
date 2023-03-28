@@ -32,11 +32,16 @@ char	*current_buffer(int fd)
 {
 	char	*cb;
 	int i;
-	current = malloc(BUFFER_SIZE + 1);
-	if (current)
+
+	i = 0;
+	cb = malloc(BUFFER_SIZE + 1);
+	if (cb)
 	{
-		read(fd, cb, BUFFER_SIZE);
-		current(BUFFER_SIZE) = '\0';
+
+		i = read(fd, cb, BUFFER_SIZE);
+		if (i <= 0)
+			return NULL;
+		cb[BUFFER_SIZE] = '\0';
 		return (cb);
 	}
 	return (NULL);
@@ -46,10 +51,10 @@ char	*current_buffer(int fd)
 
 void joinline(int fd)
 {
+	static char *tail;
 	char	*cb;
-	char **sep;
 
-	sep = NULL;
+	tail = "";
 	cb = current_buffer(fd);
 	while (no_new_line_in(cb))
 	{
@@ -59,9 +64,8 @@ void joinline(int fd)
 	if (new_line_in(cb))
 	{
 		sep = ft_split(cb, '\n');
-		line = ft_strjoin(line, sep[0]);
-		line = ft_strjoin(line, "\n");
-		tail = sep[1];
+		line = ft_strjoin(line, until_nl(cb));
+		tail = after_nl(cb);
 		free(sep);
 	}
 }
@@ -70,8 +74,8 @@ void joinline(int fd)
 char	*get_next_line(int fd)
 {
 	static char			*line;
-	char *tail;
 
-
+	line = "";
+	line = ft_strjoin(tail, line);
 	return (line);
 }
