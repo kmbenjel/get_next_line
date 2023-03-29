@@ -6,7 +6,7 @@
 /*   By: kbenjell <kbenjell@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 23:59:24 by kbenjell          #+#    #+#             */
-/*   Updated: 2023/03/29 10:07:13 by kbenjell         ###   ########.fr       */
+/*   Updated: 2023/03/29 10:37:35 by kbenjell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,6 @@ size_t	ft_strlen(const char *str)
 	while (str[c])
 		c++;
 	return (c);
-}
-
-char	*alloc_for_unl(char *s)
-{
-	char	*unl;
-	int		i;
-
-	unl = NULL;
-	i = 0;
-	while (s[i] != '\n')
-		i++;
-	unl = malloc(i + 2);
-	return (unl);
 }
 
 // Allocate for a string containing characters
@@ -73,7 +60,7 @@ char	*until_nl(char *s)
 	char	*unl;
 
 	i = 0;
-	unl = alloc_for_unl(s);
+	unl = malloc(ft_strlen(s) + 1);
 	while (s[i] && s[i] != '\n')
 	{
 		unl[i] = s[i];
@@ -81,6 +68,7 @@ char	*until_nl(char *s)
 	}
 	unl[i] = '\n';
 	unl[i + 1] = '\0';
+	free(s);
 	return (unl);
 }
 
