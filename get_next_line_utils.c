@@ -6,7 +6,7 @@
 /*   By: kbenjell <kbenjell@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 23:59:24 by kbenjell          #+#    #+#             */
-/*   Updated: 2023/03/29 02:13:33 by kbenjell         ###   ########.fr       */
+/*   Updated: 2023/03/29 03:32:25 by kbenjell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	*until_nl(char *s)
 	char	*unl;
 
 	i = 0;
-	unl = ft_strjoin(s, NULL);
+	unl = ft_strjoin(s, "_");
 	while (s[i] != '\n')
 		i++;
 	unl[i + 1] = '\0';
