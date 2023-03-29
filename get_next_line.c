@@ -6,7 +6,7 @@
 /*   By: kbenjell <kbenjell@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 23:59:14 by kbenjell          #+#    #+#             */
-/*   Updated: 2023/03/29 00:24:57 by kbenjell         ###   ########.fr       */
+/*   Updated: 2023/03/29 00:44:04 by kbenjell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
@@ -48,24 +48,24 @@ static char	*current_buffer(int fd)
 
 // READ_BS above stands for: Read the Current Buffer
 
-static char	*joinline(int fd, static char *tail)
+static char	*joinline(int fd, char **line)
 {
 	char	*cb;
-	char	*line;
+	char	*tail;
 
-	line = NULL;
+	tail = NULL;
 	cb = current_buffer(fd);
 	while (no_new_line_in(cb))
 	{
-		line = ft_strjoin(line, cb);
+		*line = ft_strjoin(*line, cb);
 		cb = current_buffer(fd);
 	}
 	if (new_line_in(cb))
 	{
-		line = ft_strjoin(line, until_nl(cb));
-		tail = after_nl(cb);
+		*line = ft_strjoin(*line, until_nl(cb));
+		tail = ft_strjoin(after_nl(cb), NULL);
 	}
-	return (line);
+	return (tail);
 }
 
 char	*get_next_line(int fd)
@@ -73,6 +73,7 @@ char	*get_next_line(int fd)
 	static char	*tail;
 	char		*line;
 
-	line = joinline(fd, tail);
+	line = ft_strjoin(tail, line);
+	tail = joinline(fd, &line);
 	return (line);
 }
