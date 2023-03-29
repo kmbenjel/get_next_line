@@ -6,7 +6,7 @@
 /*   By: kbenjell <kbenjell@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 23:59:24 by kbenjell          #+#    #+#             */
-/*   Updated: 2023/03/29 09:18:38 by kbenjell         ###   ########.fr       */
+/*   Updated: 2023/03/29 09:33:40 by kbenjell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*alloc_for_unl(char *s)
 	i = 0;
 	while (s[i] != '\n')
 		i++;
-	unl = malloc(i++);
+	unl = malloc(i + 1);
 	return (unl);
 }
 
