@@ -6,7 +6,7 @@
 /*   By: kbenjell <kbenjell@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 23:59:14 by kbenjell          #+#    #+#             */
-/*   Updated: 2023/03/28 23:19:20 by kbenjell         ###   ########.fr       */
+/*   Updated: 2023/03/29 00:11:28 by kbenjell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
@@ -48,12 +48,11 @@ static char	*current_buffer(int fd)
 
 // READ_BS above stands for: Read the Current Buffer
 
-static void	joinline(int fd)
+static char	*joinline(int fd)
 {
-	static char	*tail;
-	char		*cb;
+	char	*cb;
+	char	*line;
 
-	tail = "";
 	cb = current_buffer(fd);
 	while (no_new_line_in(cb))
 	{
@@ -67,11 +66,11 @@ static void	joinline(int fd)
 		tail = after_nl(cb);
 		free(sep);
 	}
+	return (line);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*line;
 	static char	*tail;
 
 	line = ft_strjoin(tail, line);
