@@ -6,7 +6,7 @@
 /*   By: kbenjell <kbenjell@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 23:59:24 by kbenjell          #+#    #+#             */
-/*   Updated: 2023/03/29 11:01:19 by kbenjell         ###   ########.fr       */
+/*   Updated: 2023/03/29 11:05:28 by kbenjell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,5 +95,5 @@ char	*after_nl(char *s)
 		j++;
 	}
 	anl[j] = '\0';
-	return (anl)
+	return (anl);
 }
