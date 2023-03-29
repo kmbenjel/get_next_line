@@ -6,10 +6,9 @@
 /*   By: kbenjell <kbenjell@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 23:59:24 by kbenjell          #+#    #+#             */
-/*   Updated: 2023/03/02 00:08:59 by kbenjell         ###   ########.fr       */
+/*   Updated: 2023/03/29 00:47:17 by kbenjell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 size_t	ft_strlen(const char *str)
 {
@@ -49,19 +48,20 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (dest);
 }
 
-char *until_nl(char *s)
+char	*until_nl(char *s)
 {
-	int i;
+	int	i;
+
+	i = 0;
 	while (s[i] != '\n')
 		i++;
 	s[i + 1] = '\0';
-	return s;
+	return (s);
 }
 
-char *after_nl(char *s)
+char	*after_nl(char *s)
 {
 	while (*s != '\n')
 		s++;
 	return (s + 1);
 }
-
