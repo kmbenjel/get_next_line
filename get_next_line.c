@@ -6,7 +6,7 @@
 /*   By: kbenjell <kbenjell@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 23:59:14 by kbenjell          #+#    #+#             */
-/*   Updated: 2023/03/29 02:19:18 by kbenjell         ###   ########.fr       */
+/*   Updated: 2023/03/29 02:22:50 by kbenjell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
@@ -15,7 +15,7 @@ static int	new_line_in(char *b)
 {
 	while (*b)
 	{
-		if (*b == '\n' || *b == -1)
+		if (*b == '\n' || !*(b + 1))
 			return (1);
 		b++;
 	}
