@@ -6,7 +6,7 @@
 /*   By: kbenjell <kbenjell@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 23:59:14 by kbenjell          #+#    #+#             */
-/*   Updated: 2023/03/29 04:00:17 by kbenjell         ###   ########.fr       */
+/*   Updated: 2023/03/29 04:28:10 by kbenjell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
@@ -50,10 +50,12 @@ static char	*current_buffer(int fd, char *cb)
 static char	*joinline(int fd, char **line)
 {
 	char	*cb;
+	char	*unl;
 	char	*tail;
 
 	tail = NULL;
 	cb = malloc(BUFFER_SIZE + 1);
+	unl = NULL;
 	if (!cb)
 		return (NULL);
 	while (cb)
@@ -61,7 +63,8 @@ static char	*joinline(int fd, char **line)
 		cb = current_buffer(fd, cb);
 		if (new_line_in(cb))
 		{
-			*line = ft_strjoin(*line, until_nl(cb));
+			unl = until_nl(cb);
+			*line = ft_strjoin(*line, unl);
 			tail = ft_strjoin(after_nl(cb), NULL);
 			break ;
 		}
@@ -70,6 +73,8 @@ static char	*joinline(int fd, char **line)
 			*line = ft_strjoin(*line, cb);
 		}
 	}
+	free(cb);
+	free(unl);
 	return (tail);
 }
 
@@ -83,7 +88,10 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	if (pos > 0)
+	{
 		line = ft_strjoin(tail, NULL);
+		free(tail);
+	}
 	tail = joinline(fd, &line);
 	pos++;
 	return (line);
