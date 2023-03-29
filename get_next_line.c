@@ -6,7 +6,7 @@
 /*   By: kbenjell <kbenjell@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 23:59:14 by kbenjell          #+#    #+#             */
-/*   Updated: 2023/03/29 08:11:58 by kbenjell         ###   ########.fr       */
+/*   Updated: 2023/03/29 08:21:51 by kbenjell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
@@ -64,6 +64,9 @@ static char	*joinline(int fd, char **line, int *rc)
 	*line = ft_strjoin(temp, unl);
 	free(temp);
 	free(unl);
+	temp = until_nl(after_nl(cb));
+	tail = ft_strjoin(temp, NULL);
+	free(temp);
 	return (tail);
 }
 
