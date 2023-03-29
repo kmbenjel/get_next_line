@@ -6,7 +6,7 @@
 /*   By: kbenjell <kbenjell@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 23:59:14 by kbenjell          #+#    #+#             */
-/*   Updated: 2023/03/29 02:31:25 by kbenjell         ###   ########.fr       */
+/*   Updated: 2023/03/29 03:20:12 by kbenjell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
@@ -36,7 +36,7 @@ static char	*current_buffer(int fd, char *cb)
 	int	i;
 
 	i = read(fd, cb, BUFFER_SIZE);
-	if (i < 0)
+	if (i <= 0)
 		return (NULL);
 	if (i == 0)
 		cb = ft_strjoin("", "");
@@ -53,21 +53,23 @@ static char	*joinline(int fd, char **line)
 
 	tail = NULL;
 	cb = malloc(BUFFER_SIZE + 1);
-	if (!cb)
-		return (NULL);
-	cb = current_buffer(fd, cb);
-	while (cb[0] && no_new_line_in(cb))
+	if (cb)
 	{
-		*line = ft_strjoin(*line, cb);
 		cb = current_buffer(fd, cb);
+		while (cb[0] && no_new_line_in(cb))
+		{
+			*line = ft_strjoin(*line, cb);
+			cb = current_buffer(fd, cb);
+		}
+		if (new_line_in(cb))
+		{
+			*line = ft_strjoin(*line, until_nl(cb));
+			tail = ft_strjoin(after_nl(cb), NULL);
+		}
+		free(cb);
+		return (tail);
 	}
-	if (new_line_in(cb))
-	{
-		*line = ft_strjoin(*line, until_nl(cb));
-		tail = ft_strjoin(after_nl(cb), NULL);
-	}
-	free(cb);
-	return (tail);
+	return (NULL);
 }
 
 char	*get_next_line(int fd)
