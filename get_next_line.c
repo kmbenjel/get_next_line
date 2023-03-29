@@ -6,7 +6,7 @@
 /*   By: kbenjell <kbenjell@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 23:59:14 by kbenjell          #+#    #+#             */
-/*   Updated: 2023/03/29 11:36:25 by kbenjell         ###   ########.fr       */
+/*   Updated: 2023/03/29 11:41:04 by kbenjell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
@@ -43,11 +43,11 @@ static char	*joinline(int fd, char **line, int *rc)
 	tail = NULL;
 	cb = malloc(BUFFER_SIZE + 1);
 	cb = current_buffer(fd, rc, cb);
-	*line = ft_strjoin(*line, cb);
+	*line = ft_strjoin(*line, cb, 1);
 	while (*rc > 0 && !new_line_in(cb))
 	{
 		cb = current_buffer(fd, rc, cb);
-		*line = ft_strjoin(*line, cb);
+		*line = ft_strjoin(*line, cb, 1);
 	}
 	if (new_line_in(*line))
 	{
@@ -64,9 +64,7 @@ char	*get_next_line(int fd)
 	int			rc;
 	char		*line;
 
-	rc = 1;
-	line = malloc(1);
-	line = "";
+	line = ft_strjoin("", "", 0);
 	if (fd < 0 || BUFFER_SIZE <= 0)
 	{
 		free(line);
@@ -80,8 +78,6 @@ char	*get_next_line(int fd)
 	tail = joinline(fd, &line, &rc);
 	if (line[0] == '\0' || rc < 0)
 		return (free(line), free(tail), tail = NULL, NULL);
-	//if (rc == 0 && line)
-	//	return (free(line), NULL);
 	return (line);
 }
 

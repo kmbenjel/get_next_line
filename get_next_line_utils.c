@@ -6,7 +6,7 @@
 /*   By: kbenjell <kbenjell@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 23:59:24 by kbenjell          #+#    #+#             */
-/*   Updated: 2023/03/29 11:05:28 by kbenjell         ###   ########.fr       */
+/*   Updated: 2023/03/29 11:43:09 by kbenjell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,11 @@ size_t	ft_strlen(const char *str)
 // Allocate for a string containing characters
 // of the buffer until the first new line
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*ft_strjoin(char *s1, char *s2, int on_off)
 {
 	char			*dest;
 	unsigned int	i;
 
-	if (!s1)
-		s1 = "";
 	if (!s2)
 		s2 = "";
 	dest = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
@@ -50,7 +48,8 @@ char	*ft_strjoin(char *s1, char *s2)
 		i++;
 	}
 	dest[ft_strlen(s1) + i] = 0;
-	free(s1);
+	if (on_off)
+		free(s1);
 	return (dest);
 }
 
