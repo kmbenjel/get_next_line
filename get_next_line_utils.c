@@ -6,7 +6,7 @@
 /*   By: kbenjell <kbenjell@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 23:59:24 by kbenjell          #+#    #+#             */
-/*   Updated: 2023/03/29 11:43:09 by kbenjell         ###   ########.fr       */
+/*   Updated: 2023/03/29 11:55:54 by kbenjell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ char	*ft_strjoin(char *s1, char *s2, int on_off)
 	char			*dest;
 	unsigned int	i;
 
-	if (!s2)
-		s2 = "";
 	dest = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
 	i = 0;
 	if (!dest)
@@ -48,8 +46,10 @@ char	*ft_strjoin(char *s1, char *s2, int on_off)
 		i++;
 	}
 	dest[ft_strlen(s1) + i] = 0;
-	if (on_off)
+	if (on_off >= 1)
 		free(s1);
+	if (on_off == 2)
+		free(s2);
 	return (dest);
 }
 
