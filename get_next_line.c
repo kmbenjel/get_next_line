@@ -6,7 +6,7 @@
 /*   By: kbenjell <kbenjell@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 23:59:14 by kbenjell          #+#    #+#             */
-/*   Updated: 2023/03/29 00:53:29 by kbenjell         ###   ########.fr       */
+/*   Updated: 2023/03/29 01:22:10 by kbenjell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
@@ -31,22 +31,15 @@ int	no_new_line_in(char *b)
 
 // In the two functions above, b stands for BUFFER, for convenience.
 
-static char	*current_buffer(int fd)
+static char	*current_buffer(int fd, char *cb)
 {
-	char	*cb;
-	int		i;
+	int	i;
 
-	i = 0;
-	cb = malloc(BUFFER_SIZE + 1);
-	if (cb)
-	{
-		i = read(fd, cb, BUFFER_SIZE);
-		if (i <= 0)
-			return (NULL);
-		cb[BUFFER_SIZE] = '\0';
-		return (cb);
-	}
-	return (NULL);
+	i = read(fd, cb, BUFFER_SIZE);
+	if (i <= 0)
+		return (NULL);
+	cb[BUFFER_SIZE] = '\0';
+	return (cb);
 }
 
 // READ_BS above stands for: Read the Current Buffer
@@ -57,10 +50,13 @@ static char	*joinline(int fd, char **line)
 	char	*tail;
 
 	tail = NULL;
-	cb = current_buffer(fd);
+	cb = malloc(BUFFER_SIZE + 1);
+	if (cb)
+		cb = current_buffer(fd, cb);
 	while (no_new_line_in(cb))
 	{
 		*line = ft_strjoin(*line, cb);
+		free(cb);
 		cb = current_buffer(fd);
 	}
 	if (new_line_in(cb))
