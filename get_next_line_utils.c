@@ -6,7 +6,7 @@
 /*   By: kbenjell <kbenjell@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 23:59:24 by kbenjell          #+#    #+#             */
-/*   Updated: 2023/03/29 10:37:35 by kbenjell         ###   ########.fr       */
+/*   Updated: 2023/03/29 10:55:20 by kbenjell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,23 @@ char	*until_nl(char *s)
 
 char	*after_nl(char *s)
 {
-	while (*s != '\n')
-		s++;
-	return (s + 1);
+	char	*anl;
+	int		i;
+	int		j;
+
+	j = 0;
+	i = 0;
+	anl = malloc(ft_strlen(s) + 1);
+	while (s[i])
+	{
+		if (s[i] == '\n')
+			break ;
+		i++;
+	}
+	i++;
+	while (s[i])
+	{
+		anl[i] = s[i]
+	}
+	anl[i] = '\0' if (i < int(ft_strlen(s))) return ()
 }
