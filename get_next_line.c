@@ -6,7 +6,7 @@
 /*   By: kbenjell <kbenjell@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 23:59:14 by kbenjell          #+#    #+#             */
-/*   Updated: 2023/03/29 04:28:10 by kbenjell         ###   ########.fr       */
+/*   Updated: 2023/03/29 04:50:50 by kbenjell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
@@ -31,12 +31,10 @@ int	no_new_line_in(char *b)
 
 // In the two functions above, b stands for BUFFER, for convenience.
 
-static char	*current_buffer(int fd, char *cb)
+static char	*current_buffer(int fd, char *cb, int *rc)
 {
-	int	i;
-
-	i = read(fd, cb, BUFFER_SIZE);
-	if (i <= 0)
+	*rc = read(fd, cb, BUFFER_SIZE);
+	if (*rc <= 0)
 	{
 		free(cb);
 		return (NULL);
@@ -47,7 +45,7 @@ static char	*current_buffer(int fd, char *cb)
 
 // READ_BS above stands for: Read the Current Buffer
 
-static char	*joinline(int fd, char **line)
+static char	*joinline(int fd, char **line, int *rc)
 {
 	char	*cb;
 	char	*unl;
@@ -60,7 +58,7 @@ static char	*joinline(int fd, char **line)
 		return (NULL);
 	while (cb)
 	{
-		cb = current_buffer(fd, cb);
+		cb = current_buffer(fd, cb, rc);
 		if (new_line_in(cb))
 		{
 			unl = until_nl(cb);
@@ -72,6 +70,8 @@ static char	*joinline(int fd, char **line)
 		{
 			*line = ft_strjoin(*line, cb);
 		}
+		if (*rc == 0)
+			break ;
 	}
 	free(cb);
 	free(unl);
@@ -81,18 +81,18 @@ static char	*joinline(int fd, char **line)
 char	*get_next_line(int fd)
 {
 	static char	*tail;
-	static int	pos;
+	static int	rc;
 	char		*line;
 
 	line = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (pos > 0)
+	if (rc > 0)
 	{
 		line = ft_strjoin(tail, NULL);
 		free(tail);
 	}
-	tail = joinline(fd, &line);
+	tail = joinline(fd, &line, rc);
 	pos++;
 	return (line);
 }
