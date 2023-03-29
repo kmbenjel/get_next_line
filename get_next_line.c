@@ -6,7 +6,7 @@
 /*   By: kbenjell <kbenjell@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 23:59:14 by kbenjell          #+#    #+#             */
-/*   Updated: 2023/03/29 05:56:50 by kbenjell         ###   ########.fr       */
+/*   Updated: 2023/03/29 06:25:18 by kbenjell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
@@ -46,7 +46,7 @@ static char	*joinline(int fd, char **line, int *rc)
 	unl = NULL;
 	if (!cb)
 		return (NULL);
-	while (*rc)
+	while (cb)
 	{
 		cb = current_buffer(fd, cb, rc);
 		if (new_line_in(cb))
