@@ -6,7 +6,7 @@
 /*   By: kbenjell <kbenjell@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 23:59:14 by kbenjell          #+#    #+#             */
-/*   Updated: 2023/03/29 11:32:28 by kbenjell         ###   ########.fr       */
+/*   Updated: 2023/03/29 11:36:25 by kbenjell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
@@ -66,7 +66,7 @@ char	*get_next_line(int fd)
 
 	rc = 1;
 	line = malloc(1);
-	line[0] = '\0';
+	line = "";
 	if (fd < 0 || BUFFER_SIZE <= 0)
 	{
 		free(line);
@@ -80,8 +80,8 @@ char	*get_next_line(int fd)
 	tail = joinline(fd, &line, &rc);
 	if (line[0] == '\0' || rc < 0)
 		return (free(line), free(tail), tail = NULL, NULL);
-	if (rc == 0 && line)
-		return (free(line), NULL);
+	//if (rc == 0 && line)
+	//	return (free(line), NULL);
 	return (line);
 }
 
