@@ -6,7 +6,7 @@
 /*   By: kbenjell <kbenjell@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 23:59:14 by kbenjell          #+#    #+#             */
-/*   Updated: 2023/03/29 05:19:47 by kbenjell         ###   ########.fr       */
+/*   Updated: 2023/03/29 05:22:57 by kbenjell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
@@ -67,18 +67,18 @@ char	*get_next_line(int fd)
 {
 	static char	*tail;
 	int			rc;
-	int			*pos;
+	static int	pos;
 	char		*line;
 
 	line = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (*pos > 0)
+	if (pos > 0)
 	{
 		line = ft_strjoin(tail, NULL);
 		free(tail);
 	}
 	tail = joinline(fd, &line, &rc);
-	*pos++;
+	pos++;
 	return (line);
 }
