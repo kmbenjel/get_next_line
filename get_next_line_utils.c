@@ -6,7 +6,7 @@
 /*   By: kbenjell <kbenjell@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 23:59:24 by kbenjell          #+#    #+#             */
-/*   Updated: 2023/03/29 10:55:20 by kbenjell         ###   ########.fr       */
+/*   Updated: 2023/03/29 11:01:19 by kbenjell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,10 @@ char	*after_nl(char *s)
 	i++;
 	while (s[i])
 	{
-		anl[i] = s[i]
+		anl[j] = s[i];
+		i++;
+		j++;
 	}
-	anl[i] = '\0' if (i < int(ft_strlen(s))) return ()
+	anl[j] = '\0';
+	return (anl)
 }
