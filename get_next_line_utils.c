@@ -6,7 +6,7 @@
 /*   By: kbenjell <kbenjell@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 23:59:24 by kbenjell          #+#    #+#             */
-/*   Updated: 2023/03/29 04:30:00 by kbenjell         ###   ########.fr       */
+/*   Updated: 2023/03/29 06:05:47 by kbenjell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,22 @@ size_t	ft_strlen(const char *str)
 		c++;
 	return (c);
 }
+
+char	*alloc_for_unl(char *s)
+{
+	char	*unl;
+	int		i;
+
+	unl = NULL;
+	i = 0;
+	while (s[i] != '\n')
+		i++;
+	unl = malloc(i++);
+	return (unl);
+}
+
+// Allocate for a string containing characters
+// of the buffer until the first new line
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
