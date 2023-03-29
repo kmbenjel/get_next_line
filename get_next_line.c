@@ -6,7 +6,7 @@
 /*   By: kbenjell <kbenjell@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 23:59:14 by kbenjell          #+#    #+#             */
-/*   Updated: 2023/03/29 12:33:21 by kbenjell         ###   ########.fr       */
+/*   Updated: 2023/03/29 12:38:23 by kbenjell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
@@ -28,7 +28,7 @@ static char	*current_buffer(int fd, int *rc, char *cb)
 {
 	*rc = read(fd, cb, BUFFER_SIZE);
 	if (*rc < 0)
-		return (NULL);
+		return (free(cb), NULL);
 	cb[*rc] = '\0';
 	return (cb);
 }
@@ -44,20 +44,19 @@ static char	*joinline(int fd, char **line, int *rc)
 	cb = malloc(BUFFER_SIZE + 1);
 	if (!cb)
 		return (NULL);
-	if (cb)
+	cb = current_buffer(fd, rc, cb);
+	if (!cb)
+		return (NULL);
+	*line = ft_strjoin(*line, cb, 1);
+	while (*rc > 0 && !new_line_in(cb))
 	{
 		cb = current_buffer(fd, rc, cb);
 		*line = ft_strjoin(*line, cb, 1);
-		while (*rc > 0 && !new_line_in(cb))
-		{
-			cb = current_buffer(fd, rc, cb);
-			*line = ft_strjoin(*line, cb, 1);
-		}
-		if (new_line_in(*line))
-		{
-			tail = after_nl(*line);
-			*line = until_nl(*line);
-		}
+	}
+	if (new_line_in(*line))
+	{
+		tail = after_nl(*line);
+		*line = until_nl(*line);
 	}
 	free(cb);
 	return (tail);
