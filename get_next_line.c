@@ -6,7 +6,7 @@
 /*   By: kbenjell <kbenjell@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 23:59:14 by kbenjell          #+#    #+#             */
-/*   Updated: 2023/03/29 09:17:14 by kbenjell         ###   ########.fr       */
+/*   Updated: 2023/03/29 09:21:43 by kbenjell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
@@ -43,11 +43,11 @@ static char	*joinline(int fd, char **line, int *rc)
 
 	tail = NULL;
 	cb = malloc(BUFFER_SIZE + 1);
-	cb = current_buffer(fd, rc);
+	cb = current_buffer(fd, rc, cb);
 	while (*rc > 0 && !new_line_in(cb))
 	{
 		*line = ft_strjoin(*line, cb);
-		cb = current_buffer(fd, rc);
+		cb = current_buffer(fd, rc, cb);
 	}
 	if (new_line_in(cb))
 	{
@@ -65,7 +65,7 @@ char	*get_next_line(int fd)
 	int			rc;
 	char		*line;
 
-	line = NULL;
+	line = malloc(1);
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	if (tail)
