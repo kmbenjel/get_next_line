@@ -6,7 +6,7 @@
 /*   By: kbenjell <kbenjell@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 23:59:14 by kbenjell          #+#    #+#             */
-/*   Updated: 2023/03/29 06:46:51 by kbenjell         ###   ########.fr       */
+/*   Updated: 2023/03/29 06:54:33 by kbenjell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
@@ -22,7 +22,7 @@ static int	new_line_in(char *b)
 	return (0);
 }
 
-// In the function above, b stands for BUFFER, for convenience.
+// In the function above, b stands for BUFFER, for convenience
 
 static char	*current_buffer(int fd, char *cb, int *rc)
 {
@@ -33,7 +33,7 @@ static char	*current_buffer(int fd, char *cb, int *rc)
 	return (cb);
 }
 
-// READ_BS above stands for: Read the Current Buffer
+// all over the code, cb is for: Current Buffer
 
 static char	*joinline(int fd, char **line, int *rc)
 {
@@ -42,7 +42,6 @@ static char	*joinline(int fd, char **line, int *rc)
 	char	*tail;
 
 	tail = NULL;
-	//unl = NULL;
 	cb = malloc(BUFFER_SIZE + 1);
 	if (!cb)
 		return (NULL);
@@ -61,6 +60,8 @@ static char	*joinline(int fd, char **line, int *rc)
 		else
 			*line = ft_strjoin(*line, cb);
 	}
+	if (*rc == 0)
+		*line = ft_strjoin(*line, cb);
 	free(cb);
 	return (tail);
 }
