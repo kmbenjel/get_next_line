@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kbenjell <kbenjell@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 23:59:14 by kbenjell          #+#    #+#             */
-/*   Updated: 2023/03/29 12:38:23 by kbenjell         ###   ########.fr       */
+/*   Updated: 2023/03/30 00:32:00 by kbenjell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
@@ -64,7 +64,7 @@ static char	*joinline(int fd, char **line, int *rc)
 
 char	*get_next_line(int fd)
 {
-	static char	*tail;
+	static char	*tail[10240];
 	int			rc;
 	char		*line;
 
@@ -74,14 +74,14 @@ char	*get_next_line(int fd)
 		free(line);
 		return (NULL);
 	}
-	if (tail)
+	if (tail[fd])
 	{
-		line = ft_strjoin(tail, line, 2);
-		tail = NULL;
+		line = ft_strjoin(tail[fd], line, 2);
+		tail[fd] = NULL;
 	}
-	tail = joinline(fd, &line, &rc);
+	tail[fd] = joinline(fd, &line, &rc);
 	if (line[0] == '\0' || rc < 0)
-		return (free(line), free(tail), tail = NULL, NULL);
+		return (free(line), free(tail[fd]), tail[fd] = NULL, NULL);
 	return (line);
 }
 
