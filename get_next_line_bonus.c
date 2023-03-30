@@ -6,10 +6,10 @@
 /*   By: kbenjell <kbenjell@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 23:59:14 by kbenjell          #+#    #+#             */
-/*   Updated: 2023/03/30 00:32:00 by kbenjell         ###   ########.fr       */
+/*   Updated: 2023/03/30 00:34:42 by kbenjell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static int	new_line_in(char *b)
 {
