@@ -62,6 +62,14 @@ static char	*joinline(int fd, char **line, int *rc)
 	return (tail);
 }
 
+// IMPORTANT
+// in every call of joinline(), the first `*line` assignment will give
+// it the `tail` from the previous call, that tail contains all what's
+// after the new line found in the previous call till the end of 
+// the file being read. before the joinline() call ends, *line will
+// be trimmed to stop at the next new line, whereas tail will contain
+// the rest of the file being read since that new line
+
 char	*get_next_line(int fd)
 {
 	static char	*tail;
@@ -87,4 +95,7 @@ char	*get_next_line(int fd)
 
 // rc is for Read Count
 // we want to fill it with the return of read() at every call
-// this occurs inside current_buffer function
+// this occurs inside current_buffer()
+// `tail` represents all what's right after the line being extracted
+// till EOF
+
