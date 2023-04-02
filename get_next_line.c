@@ -86,3 +86,5 @@ char	*get_next_line(int fd)
 }
 
 // rc is for Read Count
+// we want to fill it with the return of read() at every call
+// this occurs inside current_buffer function
